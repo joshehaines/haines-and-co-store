@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haines &amp; Co. — Running Shoes, Clothing &amp; Accessories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+
+    /* ══════════════════════════════════════
+       HOMEPAGE — PRO DIRECT FORMAT
+    ══════════════════════════════════════ */
+
+    /* ── HERO (full-width banner like Pro Direct) ── */
+    .hero {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: auto;
+      padding: 3.5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-text { color: var(--white); }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      padding: 0.28rem 0.7rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em { display: block; color: rgba(255,255,255,0.4); font-style: normal; font-weight: 300; font-size: 0.7em; letter-spacing: -0.5px; margin-top: 0.2rem; }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.55); margin-bottom: 1.8rem; line-height: 1.7; max-width: 420px; }
+    .hero-btns { display: flex; gap: 0.8rem; }
+
+    .hero-image {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.18);
+      font-size: 0.8rem;
+      gap: 0.75rem;
+    }
+    .hero-image svg { width: 56px; height: 56px; }
+
+    /* ── GENDER PANELS (Pro Direct style — 3 horizontal panels) ── */
+    .gender-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    .gender-panel {
+      display: block;
+      text-decoration: none;
+      color: var(--white);
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .gender-panel:hover .gp-img { transform: scale(1.04); }
+    .gp-img {
+      position: absolute; inset: 0;
+      transition: transform 0.4s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gp-img svg { width: 100px; height: 100px; opacity: 0.07; }
+    .gp-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,32,64,0.82) 0%, rgba(13,32,64,0.15) 50%, rgba(13,32,64,0.08) 100%);
+    }
+    .gp-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      z-index: 1;
+    }
+    .gp-label .title { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; display: block; margin-bottom: 0.4rem; }
+    .gp-label .sub { font-size: 0.78rem; color: rgba(255,255,255,0.6); display: block; margin-bottom: 0.8rem; }
+    .gp-label .shop-link {
+      display: inline-block;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.5rem 1.1rem;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .gp-label .shop-link:hover { background: var(--grey-100); }
+    .gp-men    { background: linear-gradient(160deg, #0d2040 0%, #163461 100%); }
+    .gp-women  { background: linear-gradient(160deg, #1a1540 0%, #2d1a5e 100%); }
+
+    /* ── SECTION DIVIDERS ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--grey-100);
+    }
+
+    /* ── PRODUCT STRIP SECTIONS ── */
+    .product-strip { padding: 3rem 1.5rem; }
+    .product-strip.alt { background: var(--off-white); }
+
+    /* ── BRANDS ROW (Pro Direct style — clean logos/pills) ── */
+    .brands-strip { padding: 2rem 1.5rem; background: var(--white); border-top: 1px solid var(--grey-100); border-bottom: 1px solid var(--grey-100); }
+    .brands-strip-inner { max-width: var(--max-w); margin: auto; }
+    .brands-strip-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400); margin-bottom: 1.2rem; text-align: center; }
+    .brands-list { display: flex; align-items: center; justify-content: center; gap: 0.7rem; flex-wrap: wrap; }
+    .brand-btn {
+      border: 1.5px solid var(--grey-200);
+      border-radius: 5px;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--grey-600);
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .brand-btn:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-tint); }
+
+    /* ── NEW IN BANNER ── */
+    .new-in-banner {
+      background: linear-gradient(90deg, var(--navy) 60%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+    }
+    .new-in-banner-inner {
+      max-width: var(--max-w);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .new-in-banner h2 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; }
+    .new-in-banner p { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; }
+
+    /* ── SALE BANNER ── */
+    .sale-banner {
+      background: #7f1d1d;
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+    }
+    .sale-banner-inner {
+      max-width: var(--max-w);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .sale-banner h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; }
+    .sale-banner h2 span { font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.55); display: block; letter-spacing: 0; margin-top: 0.2rem; }
+    .btn-red { background: var(--white); color: #7f1d1d; border-color: var(--white); }
+    .btn-red:hover { background: var(--grey-100); }
+
+    /* ── REVIEWS ── */
+    .reviews-section { padding: 3.5rem 1.5rem; background: var(--off-white); }
+    .reviews-section .inner { max-width: var(--max-w); margin: auto; }
+    .reviews-header { margin-bottom: 2rem; }
+    .reviews-header h2 { font-size: 1.3rem; font-weight: 900; color: var(--navy); }
+    .reviews-header p { color: var(--grey-400); font-size: 0.85rem; margin-top: 0.2rem; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .review-card { background: var(--white); border-radius: var(--radius); padding: 1.3rem; border: 1.5px solid var(--grey-100); }
+    .review-stars { color: #b8860b; font-size: 0.9rem; margin-bottom: 0.6rem; }
+    .review-card blockquote { font-size: 0.86rem; color: var(--text); line-height: 1.6; font-style: italic; margin-bottom: 0.7rem; }
+    .reviewer { font-size: 0.74rem; font-weight: 700; color: var(--grey-400); }
+    .verified { color: #16a34a; font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-image { display: none; }
+      .gender-panels { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .gender-panels { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav>
+  <div class="nav-top">
+    <a class="nav-logo" href="index.html">Haines <em>&amp; Co.</em></a>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for shoes, clothing, brands&hellip;" />
+      <button>Search</button>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#" class="nav-action" title="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Account</span>
+      </a>
+      <a href="#" class="nav-action" title="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
+        <span>Wishlist</span>
+      </a>
+      <div class="nav-action-wrap">
+        <a href="#" class="nav-action" title="Shopping Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span>Bag</span>
+        </a>
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY BAR -->
+              <div class="nav-cats">
+      <div class="nav-cats-inner">
+
+        <div class="nav-item"><a href="running.html">Running</a>
+          <div class="nav-dropdown">
+            <a href="running.html">All Running</a>
+            <hr>
+            <span class="nav-dropdown-label">Men&#39;s</span>
+            <a href="mens-shoes.html">Running Shoes</a>
+            <a href="mens-clothing.html">Running Clothing</a>
+            <a href="mens-accessories.html">Accessories</a>
+            <hr>
+            <span class="nav-dropdown-label">Women&#39;s</span>
+            <a href="womens-shoes.html">Running Shoes</a>
+            <a href="womens-clothing.html">Running Clothing</a>
+            <a href="womens-accessories.html">Accessories</a>
+            <hr>
+            <span class="nav-dropdown-label">More</span>
+            <a href="shoes-preowned.html">Pre-Owned Shoes</a>
+            <a href="sale.html">Sale</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="lifestyle.html">Lifestyle</a>
+          <div class="nav-dropdown">
+            <a href="lifestyle.html">All Lifestyle</a>
+            <hr>
+            <span class="nav-dropdown-label">Clothing</span>
+            <a href="lifestyle-tshirts.html">T-Shirts</a>
+            <a href="lifestyle-hoodies.html">Hoodies &amp; Sweatshirts</a>
+            <a href="lifestyle-joggers.html">Joggers &amp; Shorts</a>
+            <hr>
+            <span class="nav-dropdown-label">Accessories</span>
+            <a href="lifestyle-caps.html">Caps &amp; Hats</a>
+            <a href="lifestyle-bags.html">Bags &amp; Backpacks</a>
+            <hr>
+            <span class="nav-dropdown-label">Footwear</span>
+            <a href="lifestyle-footwear.html">Trainers &amp; Sneakers</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="technology.html">Technology</a>
+          <div class="nav-dropdown">
+            <a href="technology.html">All Technology</a>
+            <hr>
+            <span class="nav-dropdown-label">Devices</span>
+            <a href="technology-phones.html">Phones</a>
+            <a href="technology-laptops.html">Laptops</a>
+            <a href="technology-desktops.html">Desktops</a>
+            <a href="technology-tablets.html">Tablets</a>
+            <hr>
+            <span class="nav-dropdown-label">More</span>
+            <a href="technology-accessories.html">Accessories</a>
+            <a href="technology-refurbished.html">Refurbished</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="tcg.html">TCG</a>
+          <div class="nav-dropdown">
+            <a href="tcg.html">All TCG</a>
+            <hr>
+            <span class="nav-dropdown-label">Product</span>
+            <a href="tcg-sealed.html">Sealed Product</a>
+            <a href="tcg-packs.html">Booster Packs</a>
+            <a href="tcg-singles.html">Singles</a>
+            <hr>
+            <span class="nav-dropdown-label">Collectibles</span>
+            <a href="tcg-graded.html">Graded Cards</a>
+            <a href="tcg-bundles.html">Bundles &amp; Deals</a>
+            <hr>
+            <span class="nav-dropdown-label">Extras</span>
+            <a href="tcg-accessories.html">Accessories</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+<!-- ══ HERO BANNER ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Spring / Summer 2026 &mdash; New Arrivals</span>
+      <h1>Run in the<br>Best Gear.<br><em>From the World's Top Brands.</em></h1>
+      <p>Running shoes, performance clothing and accessories from Nike, adidas, ASICS, HOKA, On Running and more. Authorised UK retailer.</p>
+      <div class="hero-btns">
+        <a href="shoes.html" class="btn btn-white">Shop Shoes</a>
+        <a href="clothing.html" class="btn btn-white-outline">Shop Clothing</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M3 17l2-8h14l2 8H3z"/><path d="M7 9V7a5 5 0 0110 0v2"/>
+      </svg>
+      Add your hero image here
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ BRANDS STRIP ══ -->
+<div class="brands-strip">
+  <div class="brands-strip-inner">
+    <p class="brands-strip-label">Official UK Stockist</p>
+    <div class="brands-list">
+      <button class="brand-btn">Nike</button>
+      <button class="brand-btn">adidas</button>
+      <button class="brand-btn">ASICS</button>
+      <button class="brand-btn">HOKA</button>
+      <button class="brand-btn">On Running</button>
+      <button class="brand-btn">Saucony</button>
+      <button class="brand-btn">New Balance</button>
+      <button class="brand-btn">Brooks</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NEW IN — SHOES ══ -->
+<section class="product-strip">
+  <div class="inner">
+    <div class="strip-header">
+      <h2>New In &mdash; Running Shoes</h2>
+      <a href="shoes.html">View all shoes</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-new">New In</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 17l2-8h14l2 8H3z"/><path d="M7 9V7a5 5 0 0110 0v2"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Nike</div>
+          <div class="product-name">Air Zoom Pegasus 41</div>
+          <div class="product-sub">Men's Road Running Shoe</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 &nbsp;(312)</div>
+          <div class="product-footer">
+            <div class="price">£130.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-best">Best Seller</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">HOKA</div>
+          <div class="product-name">Clifton 9</div>
+          <div class="product-sub">Women's Everyday Running Shoe</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 &nbsp;(528)</div>
+          <div class="product-footer">
+            <div class="price">£145.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-new">New In</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">On Running</div>
+          <div class="product-name">Cloudmonster 2</div>
+          <div class="product-sub">Women's High-Energy Running Shoe</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 &nbsp;(407)</div>
+          <div class="product-footer">
+            <div class="price">£170.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-new">New In</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">New Balance</div>
+          <div class="product-name">Fresh Foam X 1080v13</div>
+          <div class="product-sub">Men's Premium Running Shoe</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 &nbsp;(293)</div>
+          <div class="product-footer">
+            <div class="price">£160.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SALE BANNER ══ -->
+<div class="sale-banner">
+  <div class="sale-banner-inner">
+    <div>
+      <h2>Sale &mdash; Up to 50% Off<span>Running shoes, clothing &amp; accessories from top brands</span></h2>
+    </div>
+    <a href="sale.html" class="btn btn-red">Shop the Sale</a>
+  </div>
+</div>
+
+<!-- ══ FEATURED CLOTHING ══ -->
+<section class="product-strip alt">
+  <div class="inner">
+    <div class="strip-header">
+      <h2>New In &mdash; Running Clothing</h2>
+      <a href="clothing.html">View all clothing</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-new">New In</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 001 .89H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 001-.88l.58-3.57a2 2 0 00-1.35-2.09z"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Nike</div>
+          <div class="product-name">Dri-FIT Miler Short-Sleeve</div>
+          <div class="product-sub">Men's Running T-Shirt</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 &nbsp;(241)</div>
+          <div class="product-footer">
+            <div class="price">£35.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-best">Best Seller</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">adidas</div>
+          <div class="product-name">Own the Run Shorts</div>
+          <div class="product-sub">Women's Running Shorts</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.7 &nbsp;(318)</div>
+          <div class="product-footer">
+            <div class="price">£30.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <span class="badge badge-sale">Sale</span>
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">Saucony</div>
+          <div class="product-name">Fortify Half-Zip Pullover</div>
+          <div class="product-sub">Men's Running Midlayer</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 4.6 &nbsp;(97)</div>
+          <div class="product-footer">
+            <div class="price"><span class="was">£75.00</span><span class="now">£49.99</span></div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <button class="wishlist-btn" onclick="toggleWish(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </button>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2"/></svg>
+        </div>
+        <div class="product-body">
+          <div class="product-brand">New Balance</div>
+          <div class="product-name">Impact Run Tight</div>
+          <div class="product-sub">Women's Running Tights</div>
+          <div class="rating-row"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 &nbsp;(162)</div>
+          <div class="product-footer">
+            <div class="price">£55.00</div>
+            <button class="add-btn" onclick="addToBag(this)">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ USP STRIP ══ -->
+<div class="usp-strip">
+  <div class="usp-grid">
+    <div class="usp">
+      <div class="usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="3" width="15" height="13" rx="1"/>
+          <path d="M16 8h4l3 5v3h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+      </div>
+      <strong>Free UK Delivery</strong>
+      <p>On all orders over £50</p>
+    </div>
+    <div class="usp">
+      <div class="usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="1 4 1 10 7 10"/>
+          <path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+        </svg>
+      </div>
+      <strong>Free Returns</strong>
+      <p>30-day hassle-free policy</p>
+    </div>
+    <div class="usp">
+      <div class="usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+      </div>
+      <strong>100% Genuine</strong>
+      <p>Authorised retailer for all brands</p>
+    </div>
+    <div class="usp">
+      <div class="usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+      </div>
+      <strong>Expert Advice</strong>
+      <p>Running specialists on hand</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews-section">
+  <div class="inner">
+    <div class="reviews-header">
+      <h2>&#9733;&#9733;&#9733;&#9733;&#9733; &nbsp; Rated 4.9 / 5</h2>
+      <p>Over 150,000 verified customer reviews</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Ordered the HOKA Clifton 9s and they arrived the next day. Perfect fit and delivery was incredibly fast. Will definitely order again."</blockquote>
+        <div class="reviewer">Sarah M. &mdash; <span class="verified">Verified Buyer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Best running shop I've used online. Great range, competitive prices, and the returns process was simple when I needed a different size."</blockquote>
+        <div class="reviewer">James R. &mdash; <span class="verified">Verified Buyer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Picked up On Cloudmonsters in the sale &mdash; incredible value. My third order here and always a brilliant experience from start to finish."</blockquote>
+        <div class="reviewer">Emma T. &mdash; <span class="verified">Verified Buyer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand footer-col">
+      <div class="footer-logo">Haines <em>&amp; Co.</em></div>
+      <p>The home of running &mdash; shoes, clothing and accessories from the world's biggest brands. Authorised retailer. 100% genuine products.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="mens.html">Men's</a></li>
+        <li><a href="womens.html">Women's</a></li>
+        <li><a href="shoes.html">Shoes</a></li>
+        <li><a href="clothing.html">Clothing</a></li>
+        <li><a href="accessories.html">Accessories</a></li>
+        <li><a href="sale.html">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">Delivery Information</a></li>
+        <li><a href="#">Returns Policy</a></li>
+        <li><a href="#">Size Guides</a></li>
+        <li><a href="#">Shoe Finder</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span>&copy; 2026 Haines &amp; Co.. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleWish(btn) {
+    const svg = btn.querySelector('svg');
+    if (btn.dataset.wished === 'true') {
+      btn.dataset.wished = 'false';
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      btn.style.borderColor = '';
+    } else {
+      btn.dataset.wished = 'true';
+      svg.setAttribute('fill', '#b91c1c');
+      svg.setAttribute('stroke', '#b91c1c');
+      btn.style.borderColor = '#b91c1c';
+    }
+  }
+  function addToBag(btn) {
+    const orig = btn.textContent;
+    btn.textContent = 'Added';
+    btn.style.background = '#16a34a';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1600);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Haines &amp; Co. | Running Shoes &amp; Clothing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .about-content {
+      padding: 5rem 1.5rem;
+      background: white;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-image {
+      background: var(--off-white);
+      border-radius: 16px;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .about-text h3 {
+      color: #ef4444;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+    }
+    .about-text h2 {
+      font-size: 2.25rem;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .about-text p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .about-values {
+      margin-top: 2rem;
+    }
+    .value-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+    .chk {
+      width: 20px;
+      height: 20px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .value-item p {
+      margin: 0;
+      color: #333;
+    }
+    .stats-section {
+      background: var(--off-white);
+      padding: 5rem 1.5rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .stat-box {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-top">
+      <a class="nav-logo" href="index.html">Haines <em>&amp; Co.</em></a>
+      <div class="nav-search">
+        <input type="text" placeholder="Search shoes, clothing, brands&hellip;" />
+        <button>Search</button>
+      </div>
+      <div class="nav-actions">
+        <a href="#" class="nav-action" title="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Account</span>
+        </a>
+        <a href="#" class="nav-action" title="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span>Wishlist</span>
+        </a>
+        <div class="nav-action-wrap">
+          <a href="#" class="nav-action" title="Shopping Bag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span>Bag</span>
+          </a>
+          <span class="cart-count">0</span>
+        </div>
+      </div>
+    </div>
+                <div class="nav-cats">
+      <div class="nav-cats-inner">
+
+        <div class="nav-item"><a href="running.html">Running</a>
+          <div class="nav-dropdown">
+            <a href="running.html">All Running</a>
+            <hr>
+            <span class="nav-dropdown-label">Men&#39;s</span>
+            <a href="mens-shoes.html">Running Shoes</a>
+            <a href="mens-clothing.html">Running Clothing</a>
+            <a href="mens-accessories.html">Accessories</a>
+            <hr>
+            <span class="nav-dropdown-label">Women&#39;s</span>
+            <a href="womens-shoes.html">Running Shoes</a>
+            <a href="womens-clothing.html">Running Clothing</a>
+            <a href="womens-accessories.html">Accessories</a>
+            <hr>
+            <span class="nav-dropdown-label">More</span>
+            <a href="shoes-preowned.html">Pre-Owned Shoes</a>
+            <a href="sale.html">Sale</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="lifestyle.html">Lifestyle</a>
+          <div class="nav-dropdown">
+            <a href="lifestyle.html">All Lifestyle</a>
+            <hr>
+            <span class="nav-dropdown-label">Clothing</span>
+            <a href="lifestyle-tshirts.html">T-Shirts</a>
+            <a href="lifestyle-hoodies.html">Hoodies &amp; Sweatshirts</a>
+            <a href="lifestyle-joggers.html">Joggers &amp; Shorts</a>
+            <hr>
+            <span class="nav-dropdown-label">Accessories</span>
+            <a href="lifestyle-caps.html">Caps &amp; Hats</a>
+            <a href="lifestyle-bags.html">Bags &amp; Backpacks</a>
+            <hr>
+            <span class="nav-dropdown-label">Footwear</span>
+            <a href="lifestyle-footwear.html">Trainers &amp; Sneakers</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="technology.html">Technology</a>
+          <div class="nav-dropdown">
+            <a href="technology.html">All Technology</a>
+            <hr>
+            <span class="nav-dropdown-label">Devices</span>
+            <a href="technology-phones.html">Phones</a>
+            <a href="technology-laptops.html">Laptops</a>
+            <a href="technology-desktops.html">Desktops</a>
+            <a href="technology-tablets.html">Tablets</a>
+            <hr>
+            <span class="nav-dropdown-label">More</span>
+            <a href="technology-accessories.html">Accessories</a>
+            <a href="technology-refurbished.html">Refurbished</a>
+          </div>
+        </div>
+
+        <div class="nav-item"><a href="tcg.html">TCG</a>
+          <div class="nav-dropdown">
+            <a href="tcg.html">All TCG</a>
+            <hr>
+            <span class="nav-dropdown-label">Product</span>
+            <a href="tcg-sealed.html">Sealed Product</a>
+            <a href="tcg-packs.html">Booster Packs</a>
+            <a href="tcg-singles.html">Singles</a>
+            <hr>
+            <span class="nav-dropdown-label">Collectibles</span>
+            <a href="tcg-graded.html">Graded Cards</a>
+            <a href="tcg-bundles.html">Bundles &amp; Deals</a>
+            <hr>
+            <span class="nav-dropdown-label">Extras</span>
+            <a href="tcg-accessories.html">Accessories</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb-top"><a href="index.html">Home</a><span>/</span> About</div>
+      <h1>About Haines &amp; Co.</h1>
+      <p>We're runners too — and we think you deserve the best gear.</p>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="about-grid">
+      <div class="about-image">
+        Add your store photo here
+      </div>
+      <div class="about-text">
+        <h3>Our Story</h3>
+        <h2>Passionate about running, just like you.</h2>
+        <p>Haines &amp; Co. was founded in 2018 by a group of passionate runners who knew there had to be a better way to shop for running gear. We were frustrated by generic sports retailers who treated running like any other sport. We believed runners needed specialists — people who understand the difference between a tempo run and an easy recovery day, who know why shoes matter, and who live and breathe this sport.</p>
+        <p>Today, we work with the world's leading running brands to bring you the products we genuinely use and believe in. Every shoe on our shelves has been tested. Every piece of clothing has been worn by someone on our team. We're not just selling products; we're sharing our passion for running with ours.</p>
+        <p>Whether you're training for a marathon, getting back into running, or simply looking to upgrade your kit, we're here to help. Our team of experienced runners is ready to offer advice, recommend products, and support your running journey.</p>
+        <div class="about-values">
+          <div class="value-item">
+            <div class="chk">&#10003;</div>
+            <p>Expert Fitting Advice</p>
+          </div>
+          <div class="value-item">
+            <div class="chk">&#10003;</div>
+            <p>Authorised Retailer</p>
+          </div>
+          <div class="value-item">
+            <div class="chk">&#10003;</div>
+            <p>Free Delivery &amp; Returns</p>
+          </div>
+          <div class="value-item">
+            <div class="chk">&#10003;</div>
+            <p>Rewards Programme</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number">2018</div>
+        <div class="stat-label">Founded</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">150K+</div>
+        <div class="stat-label">Reviews</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">30-Day</div>
+        <div class="stat-label">Returns</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="usp-strip">
+    <div class="usp-item">
+      <h3>Expert Advice</h3>
+      <p>Our staff are runners too — get personal recommendations from people who know.</p>
+    </div>
+    <div class="usp-item">
+      <h3>Free Returns</h3>
+      <p>30 days to decide. Free returns on UK orders, no questions asked.</p>
+    </div>
+    <div class="usp-item">
+      <h3>Guaranteed Genuine</h3>
+      <p>100% authentic products from authorised suppliers. Your trust is everything.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand footer-col">
+        <div class="footer-logo">Haines <em>&amp; Co.</em></div>
+        <p>The home of running &mdash; shoes, clothing and accessories from the world's biggest brands. Authorised retailer. 100% genuine products.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="mens.html">Men's</a></li>
+          <li><a href="womens.html">Women's</a></li>
+          <li><a href="shoes.html">Shoes</a></li>
+          <li><a href="clothing.html">Clothing</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="sale.html">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Track My Order</a></li>
+          <li><a href="#">Delivery Information</a></li>
+          <li><a href="#">Returns Policy</a></li>
+          <li><a href="#">Size Guides</a></li>
+          <li><a href="#">Shoe Finder</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span>&copy; 2026 Haines &amp; Co.. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
