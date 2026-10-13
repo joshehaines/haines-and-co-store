@@ -1,7 +1,8 @@
 # Replicating Nimbus Maps internally: research and conclusion
 
 Date: 13 October 2026
-Scope: England and Wales (Nimbus' core coverage). Scotland and Northern Ireland sit on different registers and are out of scope for the first build.
+Prepared for: Christie & Co (see section 11 for the firm-specific analysis)
+Scope: England and Wales (Nimbus' core coverage). Scotland and Northern Ireland sit on different land registers and are out of scope for the first build, although the sector registers in section 11 cover Wales and Scotland too.
 
 ---
 
@@ -17,7 +18,7 @@ Scope: England and Wales (Nimbus' core coverage). Scotland and Northern Ireland 
 | Live on-market listings | Nimbus licenses a Rightmove feed. Rightmove sells no public read API and scraping breaches its terms and UK database right. | Licence EG Propertylink or Realla, ingest our own instructions, and ingest agents' sites only with permission. |
 | Third-party commercial sold comparables | EG Radius closed. Nimbus now relies on a "Contributed Data Model" from partner surveying firms, which is closed to outsiders. | Build from HM Land Registry corporate ownership price-paid fields, lease premiums, title registers, VOA rateable values, and our own deal history. |
 
-**Recommendation:** build it, in three phases, and keep a single cheap Nimbus or Searchland seat for the first six months as a cross-check. The build pays back in year one against five or more Nimbus seats, and the CRM-cleaning and lease-event features alone are worth more internally than the map.
+**Recommendation:** build it, in three phases, and keep a single cheap Nimbus or Searchland seat for the first six months as a cross-check. The build pays back in year one against five or more Nimbus seats. For Christie & Co specifically, the bigger prize is the operator layer that Nimbus lacks: CQC, Ofsted, NHSBSA pharmacy, FSA hospitality, VOA and Companies House registers that can key and continuously refresh the CRM (section 11).
 
 Rough annual cost comparison, for a 5 to 10 seat team:
 
@@ -284,6 +285,94 @@ Suggested next step: approve phase 1, apply for HMLR Business e-services and Bus
 
 ---
 
+## 11. Christie & Co context: why this matters more for a business-property adviser
+
+Christie & Co (part of Christie Group plc, founded 1935, 33 offices across the UK and Europe) is the UK's leading specialist adviser for buying, selling, valuing and financing trading businesses in hotels, pubs, restaurants, childcare and education, care, dental, medical, pharmacy, convenience retail, leisure and garden centres. In 2025 the group sold 1,164 businesses worth close to £2.0bn, with group revenue of £70.6m, and sister brands Pinders (valuation), Christie Finance (debt brokerage) and Venners (stocktaking) sit alongside. Its own 2026 outlook expects continued financial distress and more non-performing operational real estate in these sectors.
+
+That changes what a Nimbus replica should be. For a land developer, the unit of interest is the title. For Christie & Co, the unit of interest is the **trading business**: an operator running a regulated or licensed activity from a property that may be freehold, leasehold or tied. Nimbus answers "who owns the freehold and what can be built". Christie & Co needs that plus "who operates it, under what registration, with what capacity, how is it rated, who is the landlord, when does the lease end, and is the operator or landlord in distress". Nimbus holds almost none of the operator layer. Public sector registers hold all of it.
+
+### 11.1 How Nimbus is used today at a firm like Christie & Co, and what the replica must keep
+
+| Daily job | Nimbus feature used | Replica source |
+|---|---|---|
+| Identify freeholder of a pub, hotel, care home or nursery before a pitch or valuation | Ownership polygons, CCOD, £7 register | Same (section 3.1) |
+| Check tenure and lease term for a leasehold business sale | Register, schedule of leases, lease document | Same, plus LLM lease extraction |
+| Map a pubco, care group or nursery group's estate | Corporate portfolio view | CCOD by company number plus group roll-up through PSC data |
+| Planning history and constraints for change of use, extensions, bed additions | Planning layers | planning.data.gov.uk, PlanIt, council scrapers |
+| Rateable value and floor area for a pub, hotel or shop (a core valuation input) | VOA layer | VOA list and summary valuations (free) |
+| Footfall and traffic for roadside, forecourt, restaurant and convenience sites | Mobility heatmaps | DfT counts free; footfall vendor paid |
+| Spot distressed owners and tenants | Distressed filters | Companies House, Gazette, plus sector regulator signals below |
+| Sold comparables for the valuation team and Pinders | Commercial comparables | Christie's own transaction history is already the best dataset in these sectors; add CCOD price paid and lease premiums |
+
+### 11.2 The operator layer: sector registers Nimbus does not have
+
+Every Christie & Co sector has a national register with operator name, address, capacity and status. These are the natural match keys for the CRM and the richest source of leads.
+
+| Sector | Register | Key fields | Access and licence |
+|---|---|---|---|
+| Care homes, nursing homes, domiciliary care, dental practices, GP practices, clinics (England) | Care Quality Commission locations and providers | CQC location ID, provider ID, provider name, brand, registered manager, service types, care home bed numbers, registration date, deregistration date, rating and inspection date, ownership type | Free weekly bulk spreadsheet and a public API, Open Government Licence |
+| Care (Wales, Scotland) | Care Inspectorate Wales; Care Inspectorate Scotland datastore | Service type, capacity, provider, grades | Free |
+| Childcare and early years | Ofsted Registered Childcare dataset and Childcare providers and inspections statistics | URN, provider name, setting type, registered places, inspection outcome | Free, OGL; places figure is as recorded at registration or last inspection, and some providers opt out of the published list |
+| Independent schools | DfE Get Information About Schools | URN, proprietor, capacity, phase | Free, OGL |
+| Pharmacies (England) | NHSBSA Consolidated Pharmaceutical List and monthly dispensing data | ODS F-code, trading name, contractor, address, items dispensed per month | Free, OGL; dispensing volume is a direct trading indicator |
+| Pharmacies (regulatory) | GPhC premises register | GPhC premises number, superintendent, owner | Quarterly public list; full extract by paid subscription |
+| Dental practices | CQC (England); NHS Scotland open data (list sizes); NHS dental statistics England | Practice, provider, NHS activity | Free |
+| Pubs, bars, restaurants, hotels, cafes, takeaways | FSA Food Hygiene Rating Scheme | Business name, address, business type (Pub/bar, Restaurant, Hotel/B&B, Takeaway), rating, local authority, latitude and longitude | Free API, no key, OGL; covers every food business in the UK, so it is the closest thing to a national hospitality premises register |
+| Licensed premises | Council premises licence registers | Premises licence number, holder, DPS, licensable activities | Free but council by council on data.gov.uk, patchy; some full versions withheld for OS licensing |
+| Hotels, pubs, care homes, nurseries, shops, forecourts, garden centres (any trading property) | VOA rating list property description and SCAT code | Hereditament, description (Public House and Premises, Hotel and Premises, Care Home, Day Nursery, Petrol Filling Station, Garden Centre), rateable value, floor areas, and for pubs and hotels the valuation scheme itself | Free, restricted terms; this is the best single national list of trading premises by type |
+| Any operator company | Companies House | SIC codes (55100 hotels, 56302 public houses and bars, 56101 licensed restaurants, 87100 and 87300 care, 88910 childcare, 47730 pharmacies, 86230 dental), officers, PSCs, charges, accounts, status | Free API and bulk, OGL |
+| Insolvency and distress | The Gazette notices; Companies House status and late filings; CQC enforcement and "inadequate" ratings; Ofsted "inadequate" and suspensions; FSA 0 to 1 ratings; VOA deletions | | Free (Gazette bulk is paid) |
+
+Joining these to the Nimbus-style property layer is straightforward: FSA, CQC and Ofsted carry postcodes and often coordinates, VOA carries full addresses, and OS Places turns any of them into a UPRN, which then links to the INSPIRE polygon and title number via the freehold register or the optional UPRN look-up dataset.
+
+### 11.3 What this means for the CRM clean-up
+
+Christie & Co's CRM, like most multi-sector brokerages, holds decades of business records, operators, landlords, buyers, lenders and advisers across many offices. The usual defects are:
+
+- The same pub, hotel or care home entered several times under different trading names, addresses or spellings.
+- Operators recorded as the owner when they are tenants, and freeholders missing entirely.
+- Businesses that have closed, deregistered or changed hands with no update.
+- Buyer and applicant records with stale company names, dissolved entities or no company number.
+- Capacity, bedrooms, beds, places and rateable values keyed by hand years ago.
+- No link between a contact and the properties they currently own or operate.
+
+The replica fixes this by giving every CRM business record a set of authoritative external identifiers and refreshing them automatically:
+
+| CRM entity | Identifier assigned | Source of truth | What it enables |
+|---|---|---|---|
+| Business or property record | UPRN, title number, VOA hereditament | OS Places, HMLR, VOA | Exact dedupe, freehold versus leasehold flag, rateable value and floor area refreshed |
+| Care, dental, medical business | CQC location ID and provider ID | CQC weekly | Beds, rating, registration status, registered manager, brand; closure and deregistration alerts |
+| Childcare business | Ofsted URN | Ofsted | Places, rating, suspension alerts |
+| Pharmacy | ODS F-code and GPhC number | NHSBSA, GPhC | Dispensing volume trend as a trading proxy; contract changes |
+| Hospitality business | FSA FHRS ID, premises licence number | FSA, councils | Business type, new openings, closures, rating drops |
+| Operator, buyer, landlord company | Company number | Companies House | Status, officers, PSCs, charges, group structure, insolvency |
+| Freeholder | CCOD proprietor and date added | HMLR monthly | Ownership-change alerts; new landlord leads; expired landlord records closed |
+| Lease | Registered lease entry and parsed lease fields | HMLR, LLM extraction | Expiry, break and review calendar for lease-renewal and re-gear instructions |
+
+Practical sequence:
+1. Export CRM businesses, contacts and companies. Normalise addresses with OS Places and assign UPRNs.
+2. Match each business to VOA (by UPRN and description), then to the sector register for its category (CQC, Ofsted, NHSBSA, FSA). Record confidence scores with Splink; put anything below a threshold into a review queue per office.
+3. Match companies to Companies House by number where present, otherwise by name and registered postcode. Flag dissolved and insolvent entities.
+4. Look up the freeholder for every matched UPRN through INSPIRE and CCOD; create missing landlord records, mark tenants correctly, close out records whose owner changed.
+5. Merge duplicates in the review queue; keep the survivor keyed on UPRN plus register ID so it cannot duplicate again.
+6. Schedule weekly refreshes from the registers so capacity, ratings, status and ownership never go stale again, and route changes to the relevant sector team as alerts.
+
+### 11.4 Christie-specific features the replica can add
+
+- **Sector heat maps**: every CQC-registered care home, Ofsted nursery, NHS pharmacy and FSA-registered pub or hotel on the map, filterable by capacity, rating, operator group, tenure and freeholder, with Christie's instructions and completions overlaid.
+- **Operator estate view**: all sites run by a care group, pubco, nursery group or pharmacy multiple, built from register provider IDs rather than company names, with the freeholder of each site alongside.
+- **Early distress signals by sector**: CQC "inadequate" or enforcement action, Ofsted suspension, falling dispensing volumes, FSA rating collapse, late accounts, new charges, Gazette notices, and VOA deletions, combined into one watch list for the restructuring and insolvency teams.
+- **Lease event pipeline**: parsed leases produce a calendar of expiries, breaks and reviews across the client base for the lease advisory and valuation teams.
+- **New business detection**: new CQC registrations, new Ofsted URNs, new FSA registrations and new pharmacy contracts in the CRM's target areas, with the freeholder already attached, feed the business development teams.
+- **Valuation support**: VOA rateable value, floor areas, capacity from registers, EPC, planning history and Christie's own comparables assembled into a one-click appraisal pack for Christie & Co and Pinders.
+- **Christie Finance cross-sell**: charges data shows which lender holds security on each site and when a facility was registered, which flags refinancing opportunities.
+
+### 11.5 Revised verdict for Christie & Co
+
+The map-and-ownership half of Nimbus is replicable from the same public sources. The half that matters most to Christie & Co, the operator and trading layer, is not in Nimbus at all and is almost entirely free from CQC, Ofsted, NHSBSA, FSA, VOA and Companies House. Building the platform around trading businesses rather than titles, with the CRM keyed on UPRN, title number, company number and sector register ID, delivers the Nimbus workflows the teams already rely on, removes the per-seat cost, and turns the CRM into a continuously refreshed market database for every office and sector. The footfall and live-listings gaps remain and should be bought where a sector team genuinely uses them.
+
+---
+
 ## Appendix A. Primary sources used
 
 Nimbus Maps
@@ -337,6 +426,18 @@ Footfall and market data vendors
 - Citi Logik footfall via DfT: https://findtransportdata.dft.gov.uk/dataset/footfall-counter-(mobile-network-data)-1831d35d12c
 - Council open footfall: https://www.data.gov.uk/dataset/6449d8f5-76e7-4aff-bfb1-46d46542a56c/footfall
 - Searchland pricing and API credits: https://searchland.co.uk/pricing , https://searchland.co.uk/api , https://docs.searchland.co.uk/
+
+Christie & Co and sector registers
+- Christie & Co about and sectors: https://www.christie.com/about/ and https://www.christiegroup.com/our-businesses/christie-and-co
+- Business Outlook 2026: https://www.christie.com/news-resources/business-outlook-2026/
+- Christie Group 2025 preliminary results: https://www.ticker.app/lse/CTG/rns/2026-04-27/Preliminary-Results/9042B
+- Care Market Review 2026 announcement: https://www.investegate.co.uk/announcement/rns/christie-group--ctg/christie-co-publishes-care-market-review-2026/9789190
+- CQC data and API: https://www.cqc.org.uk/about-us/transparency/using-cqc-data
+- Ofsted Registered Childcare dataset: https://www.data.gov.uk/dataset/1889ff52-5455-4980-ba74-15bb1edb4b60/childcare-providers-and-places and methodology https://www.gov.uk/government/statistics/childcare-providers-and-inspections-as-at-31-march-2025/methodology-childcare-providers-and-inspections-as-at-31-march-2025
+- NHSBSA Consolidated Pharmaceutical List: https://opendata.nhsbsa.net/dataset/consolidated-pharmaceutical-list and dispensing data https://opendata.nhsbsa.net/dataset/25230765-9494-4fde-b3fc-af9c00037dfb
+- GPhC registers data: https://www.pharmacyregulation.org/about-us/research/gphc-registers-data
+- NHS Scotland dental practices: https://www.opendata.nhs.scot/dataset/dental-practices-and-patient-registrations
+- Council premises licence registers on data.gov.uk: https://www.data.gov.uk/search?q=premises
 
 Record linkage
 - Splink: https://www.gov.uk/government/publications/joined-up-data-in-government-the-future-of-data-linking-methods/splink-mojs-open-source-library-for-probabilistic-record-linkage-at-scale
